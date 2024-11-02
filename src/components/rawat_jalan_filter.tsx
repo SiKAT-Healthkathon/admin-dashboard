@@ -23,20 +23,24 @@ interface RawatJalanFilterProps {
 
 const poli: { id: string; value: string }[] = [
   {
-    id: "Gigi",
-    value: "Gigi",
+    id: "Poli Gigi",
+    value: "Poli Gigi",
   },
   {
-    id: "Umum",
-    value: "Umum",
+    id: "Poli Umum",
+    value: "Poli Umum",
   },
   {
-    id: "Spesial",
-    value: "Spesial",
+    id: "Poli Spesial",
+    value: "Poli Spesial",
   },
   {
-    id: "Jantung",
-    value: "Jantung",
+    id: "Poli Jantung",
+    value: "Poli Jantung",
+  },
+  {
+    id: "Poli KIA",
+    value: "Poli KIA",
   },
 ];
 
@@ -96,7 +100,7 @@ export default function RawatJalanFilter(props: RawatJalanFilterProps) {
       </Box>
       <Divider orientation="vertical" flexItem />
       <Typography paddingX={2} fontSize={16}>
-        Filter By
+        Filter
       </Typography>
       <Divider orientation="vertical" flexItem />
       <Select
@@ -150,7 +154,7 @@ export default function RawatJalanFilter(props: RawatJalanFilterProps) {
         startIcon={<RestartAltOutlinedIcon />}
         text="Reset Filter"
         onClick={handleReset}
-        sx={{ color: "error.main", py: 2, borderRadius: 0 }}
+        sx={{ color: "error.main", py: 1, borderRadius: 0 }}
       ></CustomButton>
     </Paper>
   );

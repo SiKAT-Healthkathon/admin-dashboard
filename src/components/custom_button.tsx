@@ -1,7 +1,4 @@
 "use client";
-
-import styled from "@emotion/styled";
-import { FileUpload } from "@mui/icons-material";
 import {
   Button,
   CircularProgress,
@@ -9,161 +6,110 @@ import {
   SxProps,
   Theme,
 } from "@mui/material";
-import { ReactElement, MouseEventHandler, FormEventHandler } from "react";
+import { FormEventHandler, MouseEventHandler, ReactNode } from "react";
 
 interface CustomButtonProps extends ButtonProps {
   text?: string;
-  fullHeight?: boolean;
-  isLoading?: boolean;
-  customColor?: string;
-  mainColor?: string;
-  mainColorHover?: string;
-  textColor?: string;
-  textWeight?: number;
-  icon?: ReactElement;
-  iconPosition?: "start" | "end";
   onClick?: MouseEventHandler<HTMLButtonElement>;
   onSubmit?: FormEventHandler<HTMLButtonElement>;
-  file?: boolean;
-  multipleFile?: boolean;
-  onFileChange?: (files: FileList | null) => void;
+  isLoading?: boolean;
+  customColor?: string;
+  icon?: ReactNode;
+  iconPosition?: "start" | "end";
+  fitContent?: boolean;
   sx?: SxProps<Theme>;
 }
 
-const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
-  height: 1,
-  overflow: "hidden",
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  whiteSpace: "nowrap",
-  width: 1,
-});
 function CustomButton({
   text,
   variant = "contained",
   isLoading = false,
-  customColor = "primary",
-  mainColor = "main",
-  mainColorHover = "800",
-  textColor = "contrastText",
-  textWeight = 400,
+  customColor = "primary.main",
   icon,
   iconPosition = "start",
-  size = "small",
-  fullHeight = false,
-  file = false,
-  multipleFile = false,
-  onFileChange,
+  size = "medium",
+  fitContent = false,
+  disableElevation = false,
   sx,
   ...buttonProps
 }: CustomButtonProps) {
-  const displayIcon = file ? (
-    <FileUpload sx={{ fontSize: { xs: 16, sm: 24, md: 32 } }} />
-  ) : (
+  const startIcon = isLoading ? (
+    <CircularProgress size={20} sx={{ color: "neutrals.300" }} />
+  ) : iconPosition === "start" ? (
     icon
-  );
+  ) : undefined;
 
-  if (text && displayIcon && !isLoading) {
-    buttonProps[iconPosition === "start" ? "startIcon" : "endIcon"] =
-      displayIcon;
-  }
+  const endIcon = !isLoading && iconPosition === "end" ? icon : undefined;
+
+  const commonStyles = {
+    fontWeight: size === "large" ? 700 : 400,
+    borderRadius: 2.25,
+    px: 3,
+    py: 1,
+    fontSize: {
+      xs: size === "large" ? 24 : 12,
+      md: size === "large" ? 28 : size === "medium" ? 15 : 12,
+      lg: size === "large" ? 32 : size === "medium" ? 18 : 14,
+    },
+  };
+
+  const variantStyles =
+    variant === "contained"
+      ? {
+          bgcolor: customColor,
+          color: "white",
+          "&:hover": {
+            bgcolor: `${customColor}.800`,
+          },
+          "&:active": {
+            bgcolor: `${customColor}.dark`,
+            transform: "scale(0.98)",
+          },
+        }
+      : variant === "outlined"
+      ? {
+          borderColor: customColor,
+          color: customColor,
+          bgcolor: "transparent",
+          "&:hover": {
+            borderColor: `${customColor}.800`,
+            bgcolor: `${customColor}.50`,
+          },
+          "&:active": {
+            borderColor: `${customColor}.dark`,
+            color: `${customColor}.dark`,
+            transform: "scale(0.98)",
+          },
+        }
+      : {
+          // For the "text" variant
+          color: customColor,
+          bgcolor: "transparent",
+          "&:hover": {
+            bgcolor: `${customColor}.50`,
+          },
+          "&:active": {
+            color: `${customColor}.dark`,
+            transform: "scale(0.98)",
+          },
+        };
 
   return (
     <Button
       variant={variant}
       size={size}
+      startIcon={startIcon}
+      endIcon={endIcon}
+      disableElevation={disableElevation}
+      fullWidth={!fitContent}
       {...buttonProps}
       sx={{
-        minWidth: 0,
-        height: !fullHeight ? "fit-content" : "100%",
-        lineHeight: text ? 1.2 : 0,
-        bgcolor:
-          variant == "contained"
-            ? `${customColor}.${mainColor}`
-            : "transparent",
-        fontWeight: textWeight,
-        borderWidth: variant == "outlined" ? 1 : 0,
-        borderColor: `${customColor}.${mainColor}`,
-        borderRadius: 2.25,
-        px: !fullHeight
-          ? text
-            ? size == "large"
-              ? 3.5
-              : size == "medium"
-              ? 4
-              : 3.25
-            : 0
-          : undefined,
-        py: !fullHeight
-          ? text
-            ? size == "large"
-              ? 2.5
-              : size == "medium"
-              ? 2
-              : 1.25
-            : 0
-          : undefined,
-        fontSize: {
-          xs: size === "large" ? 24 : 12,
-          md: size === "large" ? 28 : size === "medium" ? 15 : 12,
-          lg: size === "large" ? 32 : size === "medium" ? 18 : 14,
-        },
-        "&:hover": {
-          bgcolor:
-            variant == "contained"
-              ? `${customColor}.${mainColorHover}`
-              : `${customColor}.50`,
-          color:
-            variant == "contained"
-              ? `${customColor}.${textColor}`
-              : `${customColor}.${mainColorHover}`,
-          borderColor: `${customColor}.${mainColorHover}`,
-        },
-        "&:active": {
-          transform: "scale(0.98)",
-        },
-        ...(text === undefined && {
-          "& .MuiButton-startIcon, & .MuiButton-endIcon": {
-            margin: 0,
-          },
-        }),
-        "&.Mui-disabled": {
-          color:
-            variant == "contained"
-              ? `${customColor}.${textColor}`
-              : `${customColor}.${mainColor}`,
-          bgcolor:
-            variant == "contained"
-              ? `${customColor}.${mainColor}`
-              : "transparent",
-          borderColor: `${customColor}.${mainColorHover}`,
-          cursor: "not-allowed",
-          opacity: 0.5,
-        },
+        ...commonStyles,
+        ...variantStyles,
         ...sx,
       }}
     >
-      {isLoading ? (
-        <CircularProgress size={20} sx={{ color: "neutrals.light" }} />
-      ) : text ? (
-        text
-      ) : (
-        displayIcon
-      )}
-      {file && (
-        <VisuallyHiddenInput
-          type="file"
-          onChange={(event) => {
-            if (onFileChange) {
-              onFileChange(event.target.files);
-            }
-          }}
-          multiple={multipleFile}
-        />
-      )}
+      {text}
     </Button>
   );
 }

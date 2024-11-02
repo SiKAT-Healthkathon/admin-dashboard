@@ -152,6 +152,9 @@ export default function AdminNavbar() {
               })}
             </List>
             <Divider />
+            <Typography color={"neutrals.800"} paddingLeft={2} paddingTop={1}>
+              Administrasi
+            </Typography>
             <List>
               {administrasi.map((page) => {
                 const isSelected = path === page.link;

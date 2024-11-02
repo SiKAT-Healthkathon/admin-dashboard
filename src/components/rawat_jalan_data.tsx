@@ -3,15 +3,26 @@
 import CustomTable, { Column } from "./custom_table";
 import StatusDialog from "./status_dialog";
 import { useState } from "react";
-import { RawatJalan } from "@/types/rawat_jalan";
 import { format } from "date-fns";
+import { Reservation } from "@/types/reservation";
+
+interface RawatJalan {
+  id: string;
+  nik: string;
+  nama: string;
+  waktu: Date;
+  tanggal: Date;
+  poli: string;
+  status: string;
+}
 
 interface Data {
-  data: RawatJalan[];
+  data: Reservation[];
   total: number;
 }
 
 const columns: Column<RawatJalan>[] = [
+  { id: "id", label: "ID", minWidth: 80, align: "center" },
   { id: "nik", label: "NIK", minWidth: 80, align: "center" },
   { id: "nama", label: "Nama", minWidth: 150 },
   {
@@ -50,7 +61,19 @@ export default function RawatJalanData({
   rowsPerPage,
   page,
 }: RawatJalanDataProps) {
-  const { data: rows, total } = data;
+  const { data: reservation, total } = data;
+
+  const rows = reservation.map((reservation) => {
+    return {
+      id: reservation.id,
+      nik: reservation.nik,
+      nama: reservation.users.name,
+      waktu: new Date(reservation.tanggal),
+      tanggal: new Date(reservation.tanggal),
+      poli: reservation.poli,
+      status: reservation.status,
+    };
+  });
 
   const [isOpenStatus, setIsOpenStatus] = useState(false);
   const [statusData, setStatusData] = useState<{

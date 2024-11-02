@@ -67,15 +67,18 @@ export default function CustomTable<T>({
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id as string}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth, fontWeight: 700 }}
-                >
-                  {column.label.toUpperCase()}
-                </TableCell>
-              ))}
+              {columns.map((column) => {
+                if (column.id == "id") return;
+                return (
+                  <TableCell
+                    key={column.id as string}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth, fontWeight: 700 }}
+                  >
+                    {column.label.toUpperCase()}
+                  </TableCell>
+                );
+              })}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -87,6 +90,7 @@ export default function CustomTable<T>({
                     const value = row[column.id as keyof T] ?? "";
                     if (column.id == "id") {
                       id = value as string;
+                      return;
                     }
                     if (column.id == "status" && handleAction) {
                       return (

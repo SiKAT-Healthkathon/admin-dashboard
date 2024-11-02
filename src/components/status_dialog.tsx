@@ -1,4 +1,5 @@
 import CustomButton from "@/components/custom_button";
+import { updateStatusReservation } from "@/services/reservation";
 import {
   Dialog,
   DialogActions,
@@ -38,8 +39,9 @@ export default function StatusDialog(props: StatusDialogProps) {
   const handleSubmit = async () => {
     setLoading(true);
     try {
+      console.log(currentStatus, props.statusData);
       if (props.statusData?.id && currentStatus) {
-        // await UpdateOrderStatus(props.statusData?.id, currentStatus);
+        await updateStatusReservation(props.statusData?.id, currentStatus);
       }
       onClose();
     } catch (error) {
@@ -52,6 +54,7 @@ export default function StatusDialog(props: StatusDialogProps) {
   return (
     <Dialog
       fullWidth
+      maxWidth="md"
       open={props.open}
       onClose={onClose}
       PaperProps={{ sx: { borderRadius: 3 }, elevation: 20 }}

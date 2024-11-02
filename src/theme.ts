@@ -40,20 +40,21 @@ const themeOptions: ThemeOptions = {
   palette: {
     mode: "light",
     primary: {
-      main: "#3A70FF",
-      light: "#FF3AB5",
-      dark: "#7F0050",
-      contrastText: "#FFFFFF",
-      "100": "#FFD8F0",
-      "200": "#FFB0E2",
-      "300": "#FF89D3",
-      "400": "#FF62C4",
-      "500": "#FF3AB5",
-      "600": "#FF13A7",
-      "700": "#EA0093",
-      "800": "#A10065",
-      "900": "#7F0050",
+      main: "#3A70FF", // Main color
+      light: "#66A8FF", // Light variant - lighter shade of main
+      dark: "#005BB5", // Dark variant - darker shade of main
+      contrastText: "#FFFFFF", // Text color on primary
+      "100": "#E1F0FF", // Very light shade
+      "200": "#B3E0FF", // Light shade
+      "300": "#80C0FF", // Mid-light shade
+      "400": "#66A8FF", // Slightly darker light shade
+      "500": "#3A70FF", // Main
+      "600": "#0072E5", // Darker variant of main
+      "700": "#005BB5", // Dark variant
+      "800": "#003D7A", // Very dark variant
+      "900": "#002B55", // Deep dark variant
     },
+
     secondary: {
       main: "#6226EF",
       light: "#EFA537",
