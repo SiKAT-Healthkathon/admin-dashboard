@@ -107,6 +107,8 @@ export default function CustomTable<T>({
                                 ? alpha(theme.palette.error.main, 0.3)
                                 : value == "Tindakan"
                                 ? alpha(theme.palette.secondary.main, 0.3)
+                                : value == "Terdaftar"
+                                ? alpha(theme.palette.secondary.dark, 0.3)
                                 : alpha(theme.palette.secondary.light, 0.3)
                             }
                             sx={{
@@ -120,6 +122,8 @@ export default function CustomTable<T>({
                                   ? alpha(theme.palette.error.main, 1)
                                   : value == "Tindakan"
                                   ? alpha(theme.palette.secondary.main, 1)
+                                  : value == "Terdaftar"
+                                  ? alpha(theme.palette.secondary.dark, 1)
                                   : alpha(theme.palette.secondary.light, 1),
                             }}
                             onClick={() =>

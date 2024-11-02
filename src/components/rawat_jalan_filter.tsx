@@ -61,6 +61,10 @@ const status: { id: string; value: string }[] = [
     id: "Belum Datang",
     value: "Belum Datang",
   },
+  {
+    id: "Terdaftar",
+    value: "Terdaftar",
+  },
 ];
 
 export default function RawatJalanFilter(props: RawatJalanFilterProps) {

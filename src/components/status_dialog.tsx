@@ -104,6 +104,15 @@ export default function StatusDialog(props: StatusDialogProps) {
           size="small"
           onClick={() => setCurrentStatus("Selesai")}
         />
+        <CustomButton
+          variant={status === "Terdaftar" ? "contained" : "outlined"}
+          text="Terdaftar"
+          customColor={
+            status === "Terdaftar" ? "secondary.dark" : "neutrals.500"
+          }
+          size="small"
+          onClick={() => setCurrentStatus("Terdaftar")}
+        />
       </DialogContent>
       <Divider />
       <DialogActions sx={{ px: 3, py: 2 }}>

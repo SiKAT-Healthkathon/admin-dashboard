@@ -28,7 +28,8 @@ export const getReservations = async ({
       )
     `
     )
-    .range(skip, skip + rowsPerPage - 1);
+    .range(skip, skip + rowsPerPage - 1)
+    .order("tanggal", { ascending: false });
 
   if (status) {
     query.eq("status", status);
