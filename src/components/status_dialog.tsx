@@ -54,7 +54,7 @@ export default function StatusDialog(props: StatusDialogProps) {
   return (
     <Dialog
       fullWidth
-      maxWidth="md"
+      maxWidth="lg"
       open={props.open}
       onClose={onClose}
       PaperProps={{ sx: { borderRadius: 3 }, elevation: 20 }}
@@ -112,6 +112,13 @@ export default function StatusDialog(props: StatusDialogProps) {
           }
           size="small"
           onClick={() => setCurrentStatus("Terdaftar")}
+        />
+        <CustomButton
+          variant={status === "Batal" ? "contained" : "outlined"}
+          text="Batal"
+          customColor={status === "Batal" ? "error.dark" : "neutrals.500"}
+          size="small"
+          onClick={() => setCurrentStatus("Batal")}
         />
       </DialogContent>
       <Divider />
